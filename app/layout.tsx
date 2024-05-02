@@ -19,7 +19,11 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <Navbar />
-        {children}
+        <div className="flex v-screen flex-row md:flex-col md:overflow-hidden">
+          <div className="flex-grow pt-3 md:overflow-y-auto md:px-12 md:py-20">
+            {children}
+          </div>
+        </div>
       </body>
     </html>
   );
