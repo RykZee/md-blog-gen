@@ -1,5 +1,6 @@
 import path from "path";
 import * as fs from "fs";
+import { notFound } from "next/navigation";
 
 export default function Page({ params }: { params: { id: string } }) {
   const filePath = path.join(
@@ -8,6 +9,10 @@ export default function Page({ params }: { params: { id: string } }) {
     "posts",
     `${params.id}.html`
   );
+
+  if (!fs.existsSync(filePath)) {
+    notFound();
+  }
   const content = fs.readFileSync(filePath, "utf-8");
 
   return (
