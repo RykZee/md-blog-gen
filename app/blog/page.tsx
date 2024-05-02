@@ -4,27 +4,21 @@ import Link from "next/link";
 import clsx from "clsx";
 
 export default function Page() {
-  const postsDirectory = path.join(process.cwd(), "app/posts");
-  const allPosts = fs.readdirSync(postsDirectory);
-  const data = allPosts
-    .filter((fileName) => fileName.endsWith(".html"))
-    .map((fileName) => {
-      const fullPath = path.join(postsDirectory, fileName);
-      const content = fs.readFileSync(fullPath, "utf-8");
+  const postsDirectory = path.join(process.cwd(), "app", "posts");
 
-      const fileNameWithoutExtension = fileName.replace(".html", "");
-      const metaDataPromise = fs.readFileSync(
-        `${postsDirectory}/${fileNameWithoutExtension}-meta.json`,
-        "utf-8"
+  const data = fs
+    .readdirSync(postsDirectory)
+    .filter((file) => file.endsWith(".json"))
+    .map((file) => {
+      const fullPath = path.join(postsDirectory, file);
+      const { title, date, description } = JSON.parse(
+        fs.readFileSync(fullPath, "utf-8")
       );
-      const { date, description } = JSON.parse(metaDataPromise);
 
       return {
-        fileName,
-        fileNameWithoutExtension,
+        title,
         date,
         description,
-        content,
       };
     });
 
@@ -34,30 +28,31 @@ export default function Page() {
       <ul>
         {data.map(
           ({
-            fileName,
-            fileNameWithoutExtension,
+            title,
             date,
             description,
-            content,
           }: {
-            fileName: string;
-            fileNameWithoutExtension: string;
+            title: string;
             date: string;
             description: string;
-            content: string;
           }) => (
-            <li key={fileName}>
+            <li key={title}>
               <Link
-                key={fileName}
-                href={`/blog/${fileNameWithoutExtension}`}
+                key={title}
+                href={`/blog/${title}`}
                 className={clsx(
                   "flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3"
                 )}
               >
-                {fileNameWithoutExtension}
+                {title}
               </Link>
-              <p>Date: {date}</p>
-              <p>Description: {description}</p>
+              <p>
+                <b>Date: </b>
+                {date}
+              </p>
+              <p>
+                <b>Description: </b> {description}
+              </p>
             </li>
           )
         )}
