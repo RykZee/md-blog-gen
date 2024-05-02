@@ -8,7 +8,7 @@ export default function Page({ params }: { params: { id: string } }) {
 
   return (
     <div>
-      <h1>{params.id}</h1>
+      <h1 className="mb-3 text-4xl font-semibold">{params.id}</h1>
       <div
         className="text-black dark:text-slate-400"
         dangerouslySetInnerHTML={{ __html: content }}
