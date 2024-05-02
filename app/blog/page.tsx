@@ -4,7 +4,7 @@ import Link from "next/link";
 import clsx from "clsx";
 
 export default function Page() {
-  const postsDirectory = path.join(process.cwd(), "app", "posts");
+  const postsDirectory = path.join(process.cwd(), "posts");
 
   const data = fs
     .readdirSync(postsDirectory)
