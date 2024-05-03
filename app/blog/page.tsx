@@ -25,7 +25,7 @@ export default function Page() {
   return (
     <div>
       <h1 className="mb-3 text-4xl font-semibold">Blog Posts</h1>
-      <ul>
+      <ul className="space-y-6">
         {data.map(
           ({
             title,
@@ -36,24 +36,19 @@ export default function Page() {
             date: string;
             description: string;
           }) => (
-            <li key={title}>
-              <Link
-                key={title}
-                href={`/blog/${title}`}
-                className={clsx(
-                  "flex h-[48px] grow items-center justify-center gap-2 rounded-md bg-gray-50 p-3 text-sm font-medium hover:bg-sky-100 hover:text-blue-600 md:flex-none md:justify-start md:p-2 md:px-3"
-                )}
-              >
-                {title}
-              </Link>
-              <p>
-                <b>Date: </b>
-                {date}
-              </p>
-              <p>
-                <b>Description: </b> {description}
-              </p>
-            </li>
+            <Link
+              key={title}
+              href={`/blog/${title}`}
+              className="relative flex flex-col-reverse bg-slate-50 rounded-lg p-4 hover:bg-sky-100 hover:text-blue-600 dark:bg-slate-800 dark:highlight-white/5 max-w-xs"
+            >
+              <li key={title}>
+                <h3 className="text-2xl font-semibold">{title}</h3>
+                <p className="text-sm mb-3">
+                  <b>Date: </b> {date}
+                </p>
+                <p>{description}</p>
+              </li>
+            </Link>
           )
         )}
       </ul>
