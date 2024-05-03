@@ -25,7 +25,7 @@ const allMarkdownData = await fs.readdirSync(markdownDir).map(async (fileName) =
 })
 
 allMarkdownData.forEach(element => element.then(x => {
-  const postsDir = path.join(process.cwd(), "posts");
+  const postsDir = path.join(process.cwd(), "app", "posts");
   fs.writeFileSync(`${postsDir}/${x.title}.html`, x.contentHtml);
   fs.writeFileSync(`${postsDir}/${x.title}-meta.json`, JSON.stringify({title: x.title, date: x.date, description: x.description}));
 }));
