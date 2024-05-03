@@ -6,7 +6,7 @@ import html from "remark-html";
 
 
 const markdownDir = path.join(process.cwd(), "markdown");
-const allMarkdownData = fs.readdirSync(markdownDir).map(async (fileName) => {
+const allMarkdownData = await fs.readdirSync(markdownDir).map(async (fileName) => {
   const fullPath = path.join(markdownDir, fileName);
   const fileContents = fs.readFileSync(fullPath, "utf-8");
 
@@ -17,7 +17,6 @@ const allMarkdownData = fs.readdirSync(markdownDir).map(async (fileName) => {
     .process(matterResult.content);
 
   const contentHtml = processedContent.toString();
-  console.log(contentHtml);
 
   return {
     contentHtml,
@@ -25,4 +24,8 @@ const allMarkdownData = fs.readdirSync(markdownDir).map(async (fileName) => {
   }
 })
 
-//console.log(allMarkdownData.contentHtml);
+allMarkdownData.forEach(element => element.then(x => {
+  const postsDir = path.join(process.cwd(), "posts");
+  fs.writeFileSync(`${postsDir}/${x.title}.html`, x.contentHtml);
+  fs.writeFileSync(`${postsDir}/${x.title}-meta.json`, JSON.stringify({title: x.title, date: x.date, description: x.description}));
+}));
