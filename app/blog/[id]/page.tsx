@@ -3,7 +3,12 @@ import * as fs from "fs";
 import { notFound } from "next/navigation";
 
 export default function Page({ params }: { params: { id: string } }) {
-  const filePath = path.join(process.cwd(), "posts", `${params.id}.html`);
+  const filePath = path.join(
+    process.cwd(),
+    "app",
+    "posts",
+    `${params.id}.html`
+  );
 
   if (!fs.existsSync(filePath)) {
     notFound();
