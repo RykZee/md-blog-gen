@@ -19,7 +19,7 @@ export default function Page({ params }: { params: { id: string } }) {
     <div>
       <h1 className="mb-3 text-4xl font-semibold">{params.id}</h1>
       <div
-        className="text-black dark:text-slate-400"
+        className="text-black dark:text-slate-400 whitespace-pre-line"
         dangerouslySetInnerHTML={{ __html: content }}
       ></div>
     </div>
