@@ -1,7 +1,7 @@
 import path from "path";
 import * as fs from "fs";
 import Link from "next/link";
-import clsx from "clsx";
+import Image from "next/image";
 
 export default function Page() {
   const postsDirectory = path.join(process.cwd(), "app", "posts");
@@ -52,6 +52,14 @@ export default function Page() {
           )
         )}
       </ul>
+      <Image
+        className="inset-y-0 right-0"
+        src="/blog.jpeg"
+        alt="Blog image"
+        width={400}
+        height={800}
+        priority
+      />
     </div>
   );
 }
